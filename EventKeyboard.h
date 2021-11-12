@@ -7,8 +7,6 @@
 struct KeyCode
 {
 	enum Key_presse {
-
-
 		UP = 72,
 		DOWN = 80,
 		LEFT = 75,
@@ -22,8 +20,6 @@ struct KeyCode
 		MOIN = 45,
 		FOIS = 42,
 		SLASH = 47,
-
-
 		a = 97,
 		b = 98,
 		c = 99,
@@ -50,7 +46,6 @@ struct KeyCode
 		x = 120,
 		y = 121,
 		z = 122,
-
 		A = 65,
 		B = 66,
 		C = 67,
@@ -77,7 +72,6 @@ struct KeyCode
 		X = 88,
 		Y = 89,
 		Z = 90,
-
 		_0 = 48,
 		_1 = 49,
 		_2 = 50,
@@ -88,9 +82,6 @@ struct KeyCode
 		_7 = 55,
 		_8 = 56,
 		_9 = 57,
-
-		
-		
 	};
 
 };
@@ -104,7 +95,7 @@ public :
 	
 	// lanche la recuperation des touche tape, deja fait dans le constructeur.
 	void run();
-	// arrete la recuperation des touche taoe, deja fait dans le déconstruteur
+	// arrete la recuperation des touche taoe, deja fait dans le dÃ©construteur
 	void stop();
 
 	/// Recupere le code de la touche tape sans block le programe, elle renvoit -1 si il y a rien .
@@ -138,45 +129,3 @@ private:
 	static std::thread* th;
 
 };
-
-namespace Events {
-
-	template<typename T, typename R>
-	/// Retrun 1 si la conditions est ok avec l'event et lance la function, ou si non 0 et rien.
-	static bool C_connector(R Event, R conditions, T(*Fun)()) {
-
-		if (Event == conditions) {
-			
-			Fun();
-			return true ;
-		}
-		return false;
-		
-	}
-
-	template<typename T, typename R>
-	/// Retrun 1 si la conditions est ok avec l'event et lance la function avec le retoure de la function (callback), ou si non 0 et rien 
-	static bool C_connector(R Event, R conditions, T(*Fun)(), T &callback_Fun) {
-
-		if (Event == conditions) {
-
-			callback_Fun = Fun();
-			return true;
-		}
-		return false;
-
-	}
-
-	template<typename R>
-	/// Retrun 1 si la conditions est ok avec l'event , ou si non 0 et rien 
-	static bool C_connector(R Event, R conditions) {
-
-		if (Event == conditions) {
-			return true;
-		}
-		return false;
-
-	}
-
-
-}
