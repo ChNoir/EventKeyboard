@@ -1,31 +1,21 @@
 #include "EventKeyboard.h"
 
-
-
-
-
-
-
-EventKeyboard::EventKeyboard()
-{
+EventKeyboard::EventKeyboard(){
 	run();
 }
 
-EventKeyboard::~EventKeyboard()
-{
+EventKeyboard::~EventKeyboard(){
 	stop();
 }
 
-void EventKeyboard::run()
-{
+void EventKeyboard::run(){
 	mt.lock();
 	getRun = true;
 	th = new std::thread(&EventKeyboard::RunFun, this);
 	mt.unlock();
 }
 
-void EventKeyboard::stop()
-{
+void EventKeyboard::stop(){
 	mt.lock();
 	getRun = false;
 	th->join();
@@ -33,8 +23,7 @@ void EventKeyboard::stop()
 	mt.unlock();
 }
 
-int EventKeyboard::getKey()
-{
+int EventKeyboard::getKey(){
 	std::this_thread::sleep_for(std::chrono::milliseconds(1));
 	mt.lock();
 	if (keyChange) {
@@ -49,8 +38,7 @@ int EventKeyboard::getKey()
 	
 }
 
-int EventKeyboard::getKey(std::string WhiteList, bool inverseur)
-{
+int EventKeyboard::getKey(std::string WhiteList, bool inverseur){
 	std::this_thread::sleep_for(std::chrono::milliseconds(1));
 	if (inverseur) {
 		/// WhiteList
@@ -96,18 +84,14 @@ int EventKeyboard::getKey(std::string WhiteList, bool inverseur)
 			{
 				mt.unlock();
 				return -1;
-			}
-		
+			}	
 		}
-
 		mt.unlock();
 		return -1;
 	}
-
 }
 
-bool EventKeyboard::Eventkey(int conditions)
-{
+bool EventKeyboard::Eventkey(int conditions){
 	if (getKey() == conditions) {
 		return true;
 	}
@@ -117,11 +101,9 @@ bool EventKeyboard::Eventkey(int conditions)
 
 
 
-void EventKeyboard::RunFun()
-{
+void EventKeyboard::RunFun(){
 	while (getRun)
 	{
-
 		std::this_thread::sleep_for(std::chrono::milliseconds(1));
 		if (_kbhit()) {
 
@@ -134,9 +116,7 @@ void EventKeyboard::RunFun()
 			keyChange = true;
 			mt.unlock();
 		}
-
 	}
-
 }
 
 
